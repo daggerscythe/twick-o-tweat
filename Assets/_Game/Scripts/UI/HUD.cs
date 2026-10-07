@@ -40,8 +40,13 @@ public class HUD : MonoBehaviour
     [SerializeField] private float flashAlpha = 0.35f;
     [SerializeField] private float flashFadeSpeed = 1.5f; // alpha per second
 
+    [Header("Gun")]
+    [SerializeField] private Gun gun;
+    [SerializeField] private Image crosshair;
+
     private Kid shownKid;
     private float feedbackHideTime;
+    private Color crosshairColor;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -55,6 +60,7 @@ public class HUD : MonoBehaviour
         health.OnHealthChanged += RefreshHealth;
         health.OnDamaged += FlashDamage;
         damageFlash.color = new Color(1f, 0f, 0f, 0f);
+        crosshairColor = crosshair.color;
 
         // draw once now in case things happened before subscription
         RefreshBag();
@@ -100,6 +106,8 @@ public class HUD : MonoBehaviour
 
         if (feedbackText.text != "" && Time.time > feedbackHideTime) feedbackText.text = "";
         UpdateDamageFlash();
+        // faded crosshair = gun is lowered
+        crosshair.color = gun.IsLowered ? new Color(crosshairColor.r, crosshairColor.g, crosshairColor.b, 0.25f) : crosshairColor;
     }
 
     private void RefreshScore()
