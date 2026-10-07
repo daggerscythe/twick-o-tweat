@@ -20,6 +20,9 @@ public class KidSpawner : MonoBehaviour
     [SerializeField] private float baseTime = 20f;
     [SerializeField] private float timePerItem = 6f;
 
+    [Header("Debug")]
+    [SerializeField] private bool logOrders = true;
+
     public event Action OnKidsChanged; // HUG listens to redraw order panel
 
     private Kid[] kidsInSlots;
@@ -56,7 +59,15 @@ public class KidSpawner : MonoBehaviour
 
         Order order = Order.Generate(candyPool, minItems, maxItems);
         float time = baseTime + timePerItem * order.TotalCount;
-        kid.Setup(order, GameColors.RandomColor(), time);
+        BagColor color = GameColors.RandomColor();
+        kid.Setup(order, color, time);
+
+        if (logOrders)
+        {
+            string text = "";
+            foreach (var pair in order.Items) text += $"{pair.Key.name} x{pair.Value}, ";
+            Debug.Log($"New kid ({GameColors.ToName(color)}, slot {slot + 1}): {text.TrimEnd(',', ' ')}");
+        }
 
         // += subscribes the method to the kid's event so when the kid leaves HandleKidLeft runs
         kid.OnLeft += HandleKidLeft;

@@ -374,11 +374,11 @@ MonoBehaviour:
   m_MinHeight: 14
   m_PreferredWidth: -1
   m_PreferredHeight: 14
-  m_FlexibleWidth: -1
+  m_FlexibleWidth: 1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
   m_MaxWidth: -1
-  m_MaxHeight: -1
+  m_MaxHeight: Infinity
 --- !u!1 &6957755989298175533
 GameObject:
   m_ObjectHideFlags: 0
