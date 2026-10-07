@@ -1520,6 +1520,78 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &922808053
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 922808056}
+  - component: {fileID: 922808055}
+  - component: {fileID: 922808054}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &922808054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922808053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5695c2251bf8a0c4a86245116624f896, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KidSpawner
+  kidPrefab: {fileID: 4454482623324440402, guid: 189a59d3c37bbe24abf6b6415c8a22e3, type: 3}
+  doorSlots:
+  - {fileID: 1914722940}
+  - {fileID: 1937446500}
+  activeSlotCount: 1
+  candyPool:
+  - {fileID: 11400000, guid: 7f6abf23599211a4d8ef986350f65c24, type: 2}
+  - {fileID: 11400000, guid: 0d3069deb2ccd684db8fca09cf2a2554, type: 2}
+  - {fileID: 11400000, guid: 4003828ed2dac124aac56593a0c467e2, type: 2}
+  - {fileID: 11400000, guid: 8e440f609f5abbd459d20d50dcac8297, type: 2}
+  - {fileID: 11400000, guid: 36da9d937d62e9d4985c27978653bd12, type: 2}
+  minItems: 1
+  maxItems: 2
+  baseTime: 20
+  timePerItem: 6
+--- !u!114 &922808055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922808053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f43a7358ec1d447a981a6e977baf1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+--- !u!4 &922808056
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922808053}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
@@ -3247,3 +3319,4 @@ SceneRoots:
   - {fileID: 1241911120}
   - {fileID: 903761957}
   - {fileID: 695291720}
+  - {fileID: 922808056}
