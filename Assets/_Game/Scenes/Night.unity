@@ -3264,7 +3264,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f4980cf63120642b3627e8307c48a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GhostSpawner
-  ghostPrefab: {fileID: 6141573271780133151, guid: 97eb7d3abe292cd4092b5ebfea2ff1f6, type: 3}
+  normalPrefab: {fileID: 6141573271780133151, guid: 97eb7d3abe292cd4092b5ebfea2ff1f6, type: 3}
+  thiefPrefab: {fileID: 5014119173415050263, guid: 69b280dfe9dca2341854adf64dc680ed, type: 3}
+  tankPrefab: {fileID: 0}
   player: {fileID: 1241911123}
   spawnInterval: 5
   maxAlive: 5
@@ -3277,6 +3279,11 @@ MonoBehaviour:
   baseSpeed: 2
   speedPerStep: 0.25
   maxSpeed: 4
+  thiefChance: 0.3
+  tankChance: 0.25
+  thiefSpeedBonus: 1
+  tankHealthMultiplier: 3
+  tankSpeedMultiplier: 0.6
   logSpawns: 1
   debugKeys: 1
 --- !u!1 &953999496

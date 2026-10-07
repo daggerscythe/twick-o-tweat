@@ -11,6 +11,8 @@ public class PlayerBag : MonoBehaviour
     public List<CandyData> Contents { get; } = new List<CandyData>();
 
     public event Action OnBagChanged; // HUD subscribes to this
+    public event Action<CandyData> OnCandyStolen; // a Thief Ghost took one
+    public event Action<CandyData> OnCandyRecovered; // the thief was shot inside the house
 
     // grabbing a bag always gives a fresh, empty one
     public void GrabBag(BagColor color)
@@ -43,5 +45,28 @@ public class PlayerBag : MonoBehaviour
         HasBag = false;
         OnBagChanged?.Invoke();
         return given;
+    }
+
+    // thief removes 1 random candy and returns it
+    public CandyData StealRandom()
+    {
+        if (!HasBag || Contents.Count == 0) return null;
+
+        int index = UnityEngine.Random.Range(0, Contents.Count);
+        CandyData candy = Contents[index];
+        Contents.RemoveAt(index);
+
+        OnCandyStolen?.Invoke(candy);
+        OnBagChanged?.Invoke();
+        return candy;
+    }
+
+    // the thief was shot in time and the candy goes back into bag
+    public void ReturnStolen(CandyData candy)
+    {
+        if (!HasBag) return; // no bag anymore, the candy is lost
+        Contents.Add(candy);
+        OnCandyRecovered?.Invoke(candy);
+        OnBagChanged?.Invoke();
     }
 }

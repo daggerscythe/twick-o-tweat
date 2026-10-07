@@ -59,6 +59,8 @@ public class HUD : MonoBehaviour
     {
         // subscribe to events
         bag.OnBagChanged += RefreshBag;
+        bag.OnCandyStolen += ShowStolen;
+        bag.OnCandyRecovered += ShowRecovered;
         spawner.OnKidsChanged += RefreshOrder;
         GameManager.Instance.OnScoreChanged += RefreshScore;
         GameManager.Instance.OnDelivery += ShowDelivery;
@@ -79,7 +81,12 @@ public class HUD : MonoBehaviour
     // unsubscribe when destroyed
     private void OnDestroy()
     {
-        if (bag != null) bag.OnBagChanged -= RefreshBag;
+        if (bag != null)
+        {
+            bag.OnBagChanged -= RefreshBag;
+            bag.OnCandyStolen -= ShowStolen;
+            bag.OnCandyRecovered -= ShowRecovered;
+        }
         if (spawner != null) spawner.OnKidsChanged -= RefreshOrder;
         if (GameManager.Instance != null)
         {
@@ -198,6 +205,16 @@ public class HUD : MonoBehaviour
     private void ShowStrike()
     {
         ShowFeedback($"The kid left unhappy! Strike {GameManager.Instance.Strikes}/{GameManager.MaxStrikes}");
+    }
+
+    private void ShowStolen(CandyData candy)
+    {
+        ShowFeedback($"A Thief Ghost stole your {candy.displayName}! Shoot it before it escapes!");
+    }
+
+    private void ShowRecovered(CandyData candy)
+    {
+        ShowFeedback($"Got the {candy.displayName} back!");
     }
 
     private void ShowFeedback(string text)
