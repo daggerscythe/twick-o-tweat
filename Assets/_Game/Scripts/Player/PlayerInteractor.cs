@@ -17,6 +17,8 @@ public class PlayerInteractor : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (!GameManager.IsPlaying) return; // frozen on Game Over screen
+
         Current = null;
         CurrentPrompt = "";
 

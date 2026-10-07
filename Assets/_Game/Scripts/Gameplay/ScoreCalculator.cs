@@ -9,6 +9,7 @@ public struct DeliveryResult
     public int Missing; // requested but not delivered
     public bool Perfect;
     public bool ColorMatch; // bag color == kid color
+    public BagColor BagColor; // which color was delivered to pick the color effect
 
     public int CandyPoints;
     public int SpeedBonus;
@@ -51,6 +52,7 @@ public class ScoreCalculator
         r.CandyPoints = r.Correct * PointsPerCorrect - r.Wrong * PenaltyPerWrong;
         r.Perfect = r.Missing == 0 && r.Wrong == 0;
         r.ColorMatch = bagColor == kidColor;
+        r.BagColor = bagColor;
 
         // bonus only applies to a fully correct order
         if (r.Perfect)

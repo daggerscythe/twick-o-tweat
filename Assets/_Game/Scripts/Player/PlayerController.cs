@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (!GameManager.IsPlaying) return; // frozen on Game Over screen
+
         Keyboard kb = Keyboard.current;
         Mouse mouse = Mouse.current;
         if (kb == null || mouse == null) return; // no keyboard/mouse plugged in
