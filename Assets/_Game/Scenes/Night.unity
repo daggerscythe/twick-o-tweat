@@ -3266,7 +3266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GhostSpawner
   normalPrefab: {fileID: 6141573271780133151, guid: 97eb7d3abe292cd4092b5ebfea2ff1f6, type: 3}
   thiefPrefab: {fileID: 5014119173415050263, guid: 69b280dfe9dca2341854adf64dc680ed, type: 3}
-  tankPrefab: {fileID: 0}
+  tankPrefab: {fileID: 405896489511342248, guid: a3e06318518805d408375f02d9035277, type: 3}
   player: {fileID: 1241911123}
   spawnInterval: 5
   maxAlive: 5
