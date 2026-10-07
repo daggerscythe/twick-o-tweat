@@ -33,7 +33,8 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        SetCursorLocked(true);
+        // the intro pop up may already have paused the game and freed the mouse
+        if (GameManager.IsPlaying) SetCursorLocked(true);
     }
 
     // Update is called once per frame
@@ -45,8 +46,6 @@ public class PlayerController : MonoBehaviour
         Mouse mouse = Mouse.current;
         if (kb == null || mouse == null) return; // no keyboard/mouse plugged in
 
-        // Cursor lock TODO: pause menu will appear later
-        if (kb.escapeKey.wasPressedThisFrame) SetCursorLocked(false);
         if (Cursor.lockState != CursorLockMode.Locked)
         {
             if (mouse.leftButton.wasPressedThisFrame) SetCursorLocked(true);
