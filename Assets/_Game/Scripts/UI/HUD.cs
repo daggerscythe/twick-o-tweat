@@ -44,6 +44,12 @@ public class HUD : MonoBehaviour
     [SerializeField] private Gun gun;
     [SerializeField] private Image crosshair;
 
+    [Header("Color effect")]
+    [SerializeField] private ColorEffects effects;
+    [SerializeField] private GameObject effectPanel;
+    [SerializeField] private Image effectIcon;
+    [SerializeField] private TMP_Text effectText;
+
     private Kid shownKid;
     private float feedbackHideTime;
     private Color crosshairColor;
@@ -105,6 +111,7 @@ public class HUD : MonoBehaviour
         }
 
         if (feedbackText.text != "" && Time.time > feedbackHideTime) feedbackText.text = "";
+        UpdateEffect();
         UpdateDamageFlash();
         // faded crosshair = gun is lowered
         crosshair.color = gun.IsLowered ? new Color(crosshairColor.r, crosshairColor.g, crosshairColor.b, 0.25f) : crosshairColor;
@@ -159,6 +166,15 @@ public class HUD : MonoBehaviour
     private void FlashDamage()
     {
         damageFlash.color = new Color(1f, 0f, 0f, flashAlpha);
+    }
+
+    private void UpdateEffect()
+    {
+        if (effectPanel.activeSelf != effects.HasEffect) effectPanel.SetActive(effects.HasEffect);
+        if (!effects.HasEffect) return;
+
+        effectIcon.color = GameColors.ToColor(effects.ActiveColor);
+        effectText.text = $"{ColorEffects.EffectName(effects.ActiveColor)}  {effects.TimeLeft:0.0}s";
     }
 
     private void UpdateDamageFlash()
