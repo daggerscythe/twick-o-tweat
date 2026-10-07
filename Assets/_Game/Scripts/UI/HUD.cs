@@ -32,6 +32,14 @@ public class HUD : MonoBehaviour
     [SerializeField] private Image bagIcon;
     [SerializeField] private TMP_Text bagText;
 
+    [Header("Top left: health")]
+    [SerializeField] private PlayerHealth health;
+    [SerializeField] private Image healthFill; // Image Type = Filled, Horizontal
+    [SerializeField] private TMP_Text healthText;
+    [SerializeField] private Image damageFlash; // full-screen red image, starts invisible
+    [SerializeField] private float flashAlpha = 0.35f;
+    [SerializeField] private float flashFadeSpeed = 1.5f; // alpha per second
+
     private Kid shownKid;
     private float feedbackHideTime;
 
@@ -44,11 +52,15 @@ public class HUD : MonoBehaviour
         GameManager.Instance.OnScoreChanged += RefreshScore;
         GameManager.Instance.OnDelivery += ShowDelivery;
         GameManager.Instance.OnStrike += ShowStrike;
+        health.OnHealthChanged += RefreshHealth;
+        health.OnDamaged += FlashDamage;
+        damageFlash.color = new Color(1f, 0f, 0f, 0f);
 
         // draw once now in case things happened before subscription
         RefreshBag();
         RefreshOrder();
         RefreshScore();
+        RefreshHealth();
         feedbackText.text = "";
     }
 
@@ -62,6 +74,11 @@ public class HUD : MonoBehaviour
             GameManager.Instance.OnScoreChanged -= RefreshScore;
             GameManager.Instance.OnDelivery -= ShowDelivery;
             GameManager.Instance.OnStrike -= ShowStrike;
+        }
+        if (health != null)
+        {
+            health.OnHealthChanged -= RefreshHealth;
+            health.OnDamaged -= FlashDamage;
         }
     }
 
@@ -82,6 +99,7 @@ public class HUD : MonoBehaviour
         }
 
         if (feedbackText.text != "" && Time.time > feedbackHideTime) feedbackText.text = "";
+        UpdateDamageFlash();
     }
 
     private void RefreshScore()
@@ -120,6 +138,27 @@ public class HUD : MonoBehaviour
             OrderEntryUI entry = Instantiate(entryPrefab, orderContainer);
             entry.Set(pair.Key.icon, pair.Value);
         }
+    }
+
+    private void RefreshHealth()
+    {
+        float fraction = health.Current / health.Max;
+        healthFill.fillAmount = fraction;
+        healthFill.color = Color.Lerp(Color.red, Color.green, fraction); // red when low
+        healthText.text = $"{Mathf.CeilToInt(health.Current)} / {health.Max}";
+    }
+
+    private void FlashDamage()
+    {
+        damageFlash.color = new Color(1f, 0f, 0f, flashAlpha);
+    }
+
+    private void UpdateDamageFlash()
+    {
+        Color c = damageFlash.color;
+        if (c.a <= 0f) return;
+        c.a = Mathf.MoveTowards(c.a, 0f, flashFadeSpeed * Time.deltaTime);
+        damageFlash.color = c;
     }
 
     private void ShowDelivery(DeliveryResult r)
