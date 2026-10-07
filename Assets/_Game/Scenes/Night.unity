@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 28775645}
   - component: {fileID: 28775644}
   - component: {fileID: 28775643}
+  - component: {fileID: 28775646}
   m_Layer: 0
   m_Name: TrashCan
   m_TagString: Untagged
@@ -233,6 +234,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 28775641}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &28775646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28775641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3734c1b8b07210449866899e7a9e2880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrashCan
 --- !u!1 &31881065
 GameObject:
   m_ObjectHideFlags: 0
@@ -1888,6 +1901,7 @@ GameObject:
   - component: {fileID: 1450076447}
   - component: {fileID: 1450076446}
   - component: {fileID: 1450076445}
+  - component: {fileID: 1450076448}
   m_Layer: 0
   m_Name: Bag_Red
   m_TagString: Untagged
@@ -1988,6 +2002,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450076443}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1450076448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1450076443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4ddd8887c496c41a22b5fefd510f0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BagPickup
+  color: 2
 --- !u!1 &1571409941
 GameObject:
   m_ObjectHideFlags: 0
@@ -2000,6 +2027,7 @@ GameObject:
   - component: {fileID: 1571409945}
   - component: {fileID: 1571409944}
   - component: {fileID: 1571409943}
+  - component: {fileID: 1571409946}
   m_Layer: 0
   m_Name: Bag_LightBlue
   m_TagString: Untagged
@@ -2100,6 +2128,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1571409941}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1571409946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571409941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4ddd8887c496c41a22b5fefd510f0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BagPickup
+  color: 0
 --- !u!1 &1593315532
 GameObject:
   m_ObjectHideFlags: 0
@@ -2112,6 +2153,7 @@ GameObject:
   - component: {fileID: 1593315536}
   - component: {fileID: 1593315535}
   - component: {fileID: 1593315534}
+  - component: {fileID: 1593315537}
   m_Layer: 0
   m_Name: Bag_Green
   m_TagString: Untagged
@@ -2212,6 +2254,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1593315532}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1593315537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593315532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4ddd8887c496c41a22b5fefd510f0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BagPickup
+  color: 3
 --- !u!1 &1638875387
 GameObject:
   m_ObjectHideFlags: 0
@@ -2336,6 +2391,7 @@ GameObject:
   - component: {fileID: 1686176132}
   - component: {fileID: 1686176131}
   - component: {fileID: 1686176130}
+  - component: {fileID: 1686176133}
   m_Layer: 0
   m_Name: Bag_Yellow
   m_TagString: Untagged
@@ -2436,6 +2492,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686176128}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1686176133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686176128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4ddd8887c496c41a22b5fefd510f0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BagPickup
+  color: 1
 --- !u!1 &1716148959
 GameObject:
   m_ObjectHideFlags: 0
