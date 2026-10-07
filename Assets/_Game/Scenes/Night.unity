@@ -2336,6 +2336,7 @@ GameObject:
   - component: {fileID: 922808056}
   - component: {fileID: 922808055}
   - component: {fileID: 922808054}
+  - component: {fileID: 922808057}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -2398,6 +2399,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &922808057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922808053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f4980cf63120642b3627e8307c48a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GhostSpawner
+  ghostPrefab: {fileID: 6141573271780133151, guid: 97eb7d3abe292cd4092b5ebfea2ff1f6, type: 3}
+  player: {fileID: 1241911123}
+  spawnInterval: 5
+  maxAlive: 5
+  roomHalfSize: {x: 7, y: 6}
+  spawnMargin: 3
+  spawnHeight: 1.25
+  scoreStep: 500
+  baseHealth: 3
+  maxHealth: 8
+  baseSpeed: 2
+  speedPerStep: 0.25
+  maxSpeed: 4
+  logSpawns: 1
+  debugKeys: 1
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
@@ -3010,7 +3038,7 @@ MonoBehaviour:
   range: 3
   hitMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   logInteractions: 0
 --- !u!114 &1241911122
 MonoBehaviour:
@@ -3231,7 +3259,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -800, y: 70}
+  m_AnchoredPosition: {x: -784, y: -13}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1341036498
