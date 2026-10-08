@@ -10,10 +10,15 @@ public class HUD : MonoBehaviour
     [SerializeField] private PlayerBag bag;
     [SerializeField] private PlayerInteractor interactor;
     [SerializeField] private KidSpawner spawner;
+    [SerializeField] private NightDirector director;
 
     [Header("Top right")]
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text strikesText;
+
+    [Header("Top center")]
+    [SerializeField] private TMP_Text clockText;
+    [SerializeField] private TMP_Text hintText;
 
     [Header("Order cards (right side), one per door slot")]
     [SerializeField] private OrderCardUI[] orderCards;
@@ -100,6 +105,10 @@ public class HUD : MonoBehaviour
     {
         promptText.text = interactor.CurrentPrompt;
 
+        // clock with the phase name underneath in smaller text
+        clockText.text = $"{director.ClockText}\n<size=60%>{director.PhaseLabel}</size>";
+        hintText.text = director.Hint;
+
         if (feedbackText.text != "" && Time.time > feedbackHideTime) feedbackText.text = "";
         UpdateEffect();
         UpdateDamageFlash();
@@ -177,7 +186,8 @@ public class HUD : MonoBehaviour
 
     private void ShowStrike()
     {
-        ShowFeedback($"The kid left unhappy! Strike {GameManager.Instance.Strikes}/{GameManager.MaxStrikes}");
+        if (GameManager.Instance.PracticeMode) ShowFeedback("Too slow! During the night that would be a strike.");
+        else ShowFeedback($"The kid left unhappy! Strike {GameManager.Instance.Strikes}/{GameManager.MaxStrikes}");
     }
 
     private void ShowStolen(CandyData candy)

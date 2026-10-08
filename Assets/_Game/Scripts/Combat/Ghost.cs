@@ -21,6 +21,7 @@ public class Ghost : MonoBehaviour
     [Header("Hit flash")]
     [SerializeField] private Color hitColor = Color.red;
     [SerializeField] private float flashTime = 0.1f;
+    [SerializeField] private float hitGlowStrength = 2f;
 
     [Header("Glow (lights out)")]
     [SerializeField] private Color glowColor = new Color(0.6f, 0.8f, 1f);
@@ -74,18 +75,30 @@ public class Ghost : MonoBehaviour
         if (flashTimer > 0f)
         {
             flashTimer -= Time.deltaTime;
-            if (flashTimer <= 0f) rend.material.color = normalColor;
+            if (flashTimer <= 0f)
+            {
+                rend.material.color = normalColor;
+                rend.material.SetColor("_EmissionColor", CurrentEmission());
+            }
         }
+
+        UpdateGlow();
 
         UpdateGlow();
     }
 
-    // faint glow while the power is out (only changes the material when the state flips)
+    // faint glow while the power is out
     private void UpdateGlow()
     {
         if (glowing == LightsOut.Active) return;
         glowing = LightsOut.Active;
-        rend.material.SetColor("_EmissionColor", glowing ? glowColor * glowStrength : normalEmission);
+        if (flashTimer <= 0f) rend.material.SetColor("_EmissionColor", CurrentEmission()); // a running flash resets it when it ends
+    }
+
+    // the emission the ghost should have when it isn't flashing
+    private Color CurrentEmission()
+    {
+        return glowing ? glowColor * glowStrength : normalEmission;
     }
 
     private void Chase()
@@ -139,6 +152,7 @@ public class Ghost : MonoBehaviour
 
         Health -= damage;
         rend.material.color = hitColor;
+        rend.material.SetColor("_EmissionColor", hitColor * hitGlowStrength);
         flashTimer = flashTime;
 
         if (Health <= 0)
