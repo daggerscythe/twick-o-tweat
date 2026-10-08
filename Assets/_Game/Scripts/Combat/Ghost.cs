@@ -22,6 +22,10 @@ public class Ghost : MonoBehaviour
     [SerializeField] private Color hitColor = Color.red;
     [SerializeField] private float flashTime = 0.1f;
 
+    [Header("Glow (lights out)")]
+    [SerializeField] private Color glowColor = new Color(0.6f, 0.8f, 1f);
+    [SerializeField] private float glowStrength = 1.5f;
+
     public int Health { get; protected set; }
     public float Speed { get; protected set; }
 
@@ -37,10 +41,14 @@ public class Ghost : MonoBehaviour
     private Color normalColor;
     private float flashTimer;
 
+    private Color normalEmission;
+    private bool glowing;
+
     protected virtual void Awake()
     {
         rend = GetComponent<Renderer>();
         normalColor = rend.material.color;
+        normalEmission = rend.material.GetColor("_EmissionColor");
     }
 
     public void Init(PlayerHealth player, int health, float speed)
@@ -68,6 +76,16 @@ public class Ghost : MonoBehaviour
             flashTimer -= Time.deltaTime;
             if (flashTimer <= 0f) rend.material.color = normalColor;
         }
+
+        UpdateGlow();
+    }
+
+    // faint glow while the power is out (only changes the material when the state flips)
+    private void UpdateGlow()
+    {
+        if (glowing == LightsOut.Active) return;
+        glowing = LightsOut.Active;
+        rend.material.SetColor("_EmissionColor", glowing ? glowColor * glowStrength : normalEmission);
     }
 
     private void Chase()

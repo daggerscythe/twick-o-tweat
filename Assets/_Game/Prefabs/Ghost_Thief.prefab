@@ -266,5 +266,7 @@ MonoBehaviour:
   knockbackDuration: 0.4
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   flashTime: 0.1
+  glowColor: {r: 0.69803923, g: 0.4, b: 1, a: 1}
+  glowStrength: 1.5
   houseHalfSize: {x: 7, y: 6}
   stolenIcon: {fileID: 9086870265234557116}

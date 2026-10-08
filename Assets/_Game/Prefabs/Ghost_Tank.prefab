@@ -61,6 +61,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6141573271780133151, guid: 97eb7d3abe292cd4092b5ebfea2ff1f6, type: 3}
+      propertyPath: glowColor.b
+      value: 0.1254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 6141573271780133151, guid: 97eb7d3abe292cd4092b5ebfea2ff1f6, type: 3}
+      propertyPath: glowColor.g
+      value: 0.1254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 6141573271780133151, guid: 97eb7d3abe292cd4092b5ebfea2ff1f6, type: 3}
+      propertyPath: glowColor.r
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 6141573271780133151, guid: 97eb7d3abe292cd4092b5ebfea2ff1f6, type: 3}
       propertyPath: contactRange
       value: 1.3
       objectReference: {fileID: 0}
