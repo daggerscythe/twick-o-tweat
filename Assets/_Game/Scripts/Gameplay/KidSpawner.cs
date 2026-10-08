@@ -1,15 +1,16 @@
 using System;
 using UnityEngine;
 
-// keeps the door filled with kids
+// keeps the open door slots filled with kids
 // spawns a new kid when old leaves
+// NightDirector opens slot 2 in Phase 3 and makes orders bigger each phase
 
 public class KidSpawner : MonoBehaviour
 {
     [Header("Prefab & Places")]
     [SerializeField] private Kid kidPrefab;
     [SerializeField] private Transform[] doorSlots; // empty GameObjects marking where kids stand
-    [SerializeField] private int activeSlotCount = 1;
+    [SerializeField] private int activeSlotCount = 1; // how many slots are open at the start
 
     [Header("Orders")]
     [SerializeField] private CandyData[] candyPool; // all 5 candy assets
@@ -23,7 +24,10 @@ public class KidSpawner : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool logOrders = true;
 
-    public event Action OnKidsChanged; // HUG listens to redraw order panel
+    public event Action OnKidsChanged; // HUD listens to redraw the order cards
+    public event Action<Kid> OnKidSpawned; // NightDirector listens (turns the timer off in tutorial step 1)
+
+    public int ActiveSlotCount => activeSlotCount;
 
     private Kid[] kidsInSlots;
 
@@ -31,10 +35,7 @@ public class KidSpawner : MonoBehaviour
     private void Start()
     {
         kidsInSlots = new Kid[doorSlots.Length];
-        for (int i = 0; i < activeSlotCount && i < doorSlots.Length; i++)
-        {
-            SpawnKid(i);
-        }
+        SetActiveSlots(activeSlotCount);
     }
 
     // returns the kid standing in a slot, or null if empty
@@ -44,11 +45,23 @@ public class KidSpawner : MonoBehaviour
         return kidsInSlots[slot];
     }
 
-    // later the phase system will call this to make orders bigger as night goes on
+    // the phase system calls this to make orders bigger as night goes on
     public void SetOrderSize(int min, int max)
     {
         minItems = min;
         maxItems = max;
+    }
+
+    // open more door slots; every open slot without a kid gets one right away
+    public void SetActiveSlots(int count)
+    {
+        activeSlotCount = Mathf.Clamp(count, 0, doorSlots.Length);
+        if (kidsInSlots == null) return; // Start hasn't run yet; it will spawn them
+
+        for (int i = 0; i < activeSlotCount; i++)
+        {
+            if (kidsInSlots[i] == null) SpawnKid(i);
+        }
     }
 
     private void SpawnKid(int slot)
@@ -73,6 +86,7 @@ public class KidSpawner : MonoBehaviour
         kid.OnLeft += HandleKidLeft;
 
         kidsInSlots[slot] = kid;
+        OnKidSpawned?.Invoke(kid);
         OnKidsChanged?.Invoke();
     }
 

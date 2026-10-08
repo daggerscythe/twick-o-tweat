@@ -15,13 +15,8 @@ public class HUD : MonoBehaviour
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text strikesText;
 
-    [Header("Order panel (right side)")]
-    [SerializeField] private Transform orderContainer; // has a Vertical Layout Group
-    [SerializeField] private OrderEntryUI entryPrefab;
-    [SerializeField] private TMP_Text kidText; // "Kid wants (Red):"
-    [SerializeField] private TMP_Text timerText;
-    [SerializeField] private Color timerNormalColor = new Color(0.13f, 0.13f, 0.13f); // dark, for a white card
-    [SerializeField] private Color timerUrgentColor = Color.red; // last 5 seconds
+    [Header("Order cards (right side), one per door slot")]
+    [SerializeField] private OrderCardUI[] orderCards;
 
     [Header("Center")]
     [SerializeField] private TMP_Text promptText;
@@ -50,7 +45,6 @@ public class HUD : MonoBehaviour
     [SerializeField] private Image effectIcon;
     [SerializeField] private TMP_Text effectText;
 
-    private Kid shownKid;
     private float feedbackHideTime;
     private Color crosshairColor;
 
@@ -106,17 +100,6 @@ public class HUD : MonoBehaviour
     {
         promptText.text = interactor.CurrentPrompt;
 
-        if (shownKid != null)
-        {
-            int seconds = Mathf.CeilToInt(shownKid.TimeLeft);
-            timerText.text = $"Time left: {seconds}s";
-            timerText.color = seconds <= 5 ? timerUrgentColor : timerNormalColor;
-        }
-        else
-        {
-            timerText.text = "";
-        }
-
         if (feedbackText.text != "" && Time.time > feedbackHideTime) feedbackText.text = "";
         UpdateEffect();
         UpdateDamageFlash();
@@ -143,22 +126,12 @@ public class HUD : MonoBehaviour
         bagText.text = $"{GameColors.ToName(bag.CurrentColor)} bag: {bag.Contents.Count} candy";
     }
 
+    // one card per door slot; an empty slot hides its card
     private void RefreshOrder()
     {
-        foreach (Transform child in orderContainer) Destroy(child.gameObject);
-
-        shownKid = spawner.GetKid(0);
-        if (shownKid == null)
+        for (int i = 0; i < orderCards.Length; i++)
         {
-            kidText.text = "";
-            return;
-        }
-
-        kidText.text = $"Order ({GameColors.ToName(shownKid.KidColor)} kid):";
-        foreach (var pair in shownKid.Order.Items)
-        {
-            OrderEntryUI entry = Instantiate(entryPrefab, orderContainer);
-            entry.Set(pair.Key.icon, pair.Value);
+            orderCards[i].Show(spawner.GetKid(i), i + 1);
         }
     }
 
