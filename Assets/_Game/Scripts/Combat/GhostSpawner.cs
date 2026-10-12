@@ -40,6 +40,7 @@ public class GhostSpawner : MonoBehaviour
     [Header("Special ghosts")]
     [SerializeField, Range(0f, 1f)] private float thiefChance = 0.3f; // per spawn, once thieves are on
     [SerializeField, Range(0f, 1f)] private float tankChance = 0.25f; // per spawn, only while no tank is alive
+    [SerializeField] private int thiefHealth = 2;
     [SerializeField] private float thiefSpeedBonus = 1f;
     [SerializeField] private int tankHealthMultiplier = 3;
     [SerializeField] private float tankSpeedMultiplier = 0.6f;
@@ -115,7 +116,7 @@ public class GhostSpawner : MonoBehaviour
         if (type == GhostType.Thief)
         {
             prefab = thiefPrefab;
-            health = Mathf.Max(1, health - 1);
+            health = thiefHealth; // doesn't scale up so they are killable late game
             speed += thiefSpeedBonus;
         }
         else if (type == GhostType.Tank)
