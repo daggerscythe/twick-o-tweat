@@ -6928,8 +6928,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 100
-  regenDelay: 4
-  regenPerSecond: 2
+  regenDelay: 3
+  regenPerSecond: 4
+  hitCooldown: 0.75
   debugKeys: 0
 --- !u!114 &1241911124
 MonoBehaviour:

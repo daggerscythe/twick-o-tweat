@@ -8,8 +8,9 @@ using UnityEngine.InputSystem;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private float regenDelay = 4f; // seconds without damage before regen starts
-    [SerializeField] private float regenPerSecond = 2f;
+    [SerializeField] private float regenDelay = 3f; // seconds without damage before regen starts
+    [SerializeField] private float regenPerSecond = 4f;
+    [SerializeField] private float hitCooldown = 0.75f; // after a hit, more hits are ignored for this long
 
     [Header("Debug")]
     [SerializeField] private bool debugKeys = true; // H = take 10 damage TODO: turn off before build
@@ -44,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float amount)
     {
         if (Invulnerable || Current <= 0f) return;
+        if (Time.time - lastDamageTime < hitCooldown) return; // still recovering from the last hit
 
         Current = Mathf.Max(0f, Current - amount);
         lastDamageTime = Time.time; // restarts the regen countdown
