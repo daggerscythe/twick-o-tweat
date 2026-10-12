@@ -33,7 +33,7 @@ public class NightDirector : MonoBehaviour
     [SerializeField] private PlayerBag playerBag;
 
     [Header("Clock")]
-    [SerializeField] private float phaseLength = 120f; // real seconds per phase (= 45 in-game minutes)
+    [SerializeField] private float phaseLength = 90f; // real seconds per phase (= 45 in-game minutes)
     [SerializeField] private int startHour = 6; // 6 PM
     [SerializeField] private int nightHours = 3; // until 9 PM
 
