@@ -22,11 +22,17 @@ public class SpeechBubble : MonoBehaviour
         }
     }
 
-    // t01 = fraction of time left, from 1 (full) to 0 (out of time).
+    // t01 = fraction of time left, from 1 (full) to 0 (out of time)
     public void SetTimer(float t01)
     {
         if (timerFill == null) return;
         timerFill.fillAmount = t01;
-        timerFill.color = Color.Lerp(Color.red, Color.green, t01); // green -> red as time runs out
+        timerFill.color = TimerColor(t01);
+    }
+
+    // green when full -> red when empty; the HUD order cards use this too
+    public static Color TimerColor(float t01)
+    {
+        return Color.Lerp(Color.red, Color.green, t01);
     }
 }
