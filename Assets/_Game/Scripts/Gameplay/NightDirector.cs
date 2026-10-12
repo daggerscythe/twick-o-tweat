@@ -315,8 +315,8 @@ public class NightDirector : MonoBehaviour
                 ? "Not quite: the bag has to match the bubble exactly. Grab a new bag and try again  [E]"
                 : "A kid is at the door! Grab any bag from the bag table  [E]";
         }
-        if (HasWrongCandy(kid.Order)) return "Oops, wrong candy! Empty the bag at the trash can  [E]";
-        if (playerBag.Contents.Count < kid.Order.TotalCount) return "Add the candy from the kid's bubble at the candy bowls  [E]";
+        if (HasWrongCandy(kid.Order)) return "Oops, wrong candy! Empty the bag at the trash can between the tables  [E]";
+        if (playerBag.Contents.Count < kid.Order.TotalCount) return "Add the candy from the kid's bubble at the bowls  [E]     Wrong one? The trash can empties your bag"; 
         return "That matches! Give the bag to the kid  [E]";
     }
 
