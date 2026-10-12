@@ -5697,19 +5697,23 @@ MonoBehaviour:
       The night ends early if your <b>health hits 0</b> or <b>3 kids</b> leave unhappy.
 
 
+
       Tip: bonus points only come from <b>perfect</b> orders.'
   - name: Phase 2
-    minItems: 3
+    minItems: 2
     maxItems: 4
-    kidSlots: 1
+    kidSlots: 2
     thiefGhosts: 1
     tankGhosts: 0
     lightsOut: 0
-    popupTitle: Thief Ghosts!
-    popupBody: '<color=#B266FF><b>Purple ghosts</b></color> don''t hurt you. They <b>steal a candy</b> from your bag and fly away.
+    popupTitle: Two at the door!
+    popupBody: 'Word got out: kids now wait at <b>two spots</b> on the porch. Pick which order to fill first, and which bag to use.
 
 
-      Shoot a thief before it leaves the house and the candy drops back into your bag.'
+
+      
+
+      Watch out for <color=#B266FF><b>purple Thief Ghosts</b></color>. They don''t hurt you: they <b>steal a candy</b> from your bag and fly away. Shoot one before it leaves the house and the candy drops back into your bag.'
   - name: Phase 3
     minItems: 3
     maxItems: 5
@@ -5717,11 +5721,14 @@ MonoBehaviour:
     thiefGhosts: 1
     tankGhosts: 1
     lightsOut: 0
-    popupTitle: Two at the door!
-    popupBody: 'Word got out: kids now wait at <b>two spots</b> on the porch. Pick which order to fill first, and which bag to use.
+    popupTitle: Tank Ghost!
+    popupBody: 'A <b>Tank Ghost</b> has woken up: big, slow, and it hits extra hard. It takes a lot of shots to bring down.
 
 
-      A <b>Tank Ghost</b> has woken up too: big, slow, and it hits twice as hard. Only one roams at a time.'
+
+      
+
+      Only one roams at a time.'
   - name: Phase 4
     minItems: 4
     maxItems: 6
@@ -5733,8 +5740,9 @@ MonoBehaviour:
     popupBody: 'The power just went out! Your <b>flashlight</b> points wherever you look.
 
 
+
       Ghosts glow faintly in the dark. Hold on until 9 PM!'
-  debugKeys: 0
+  debugKeys: 1
 --- !u!1 &934534637
 GameObject:
   m_ObjectHideFlags: 0
