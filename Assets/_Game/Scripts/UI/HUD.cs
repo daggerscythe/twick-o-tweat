@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 // Screen overlay: score, strikes, current order + kid timer, interaction prompt, held bag (color + candy count) and a short message after each delivery
 
@@ -31,6 +32,8 @@ public class HUD : MonoBehaviour
     [Header("Bottom left")]
     [SerializeField] private Image bagIcon;
     [SerializeField] private TMP_Text bagText;
+    [SerializeField] private Transform bagContents;
+    [SerializeField] private OrderEntryUI candyChipPrefab;
 
     [Header("Top left: health")]
     [SerializeField] private PlayerHealth health;
@@ -124,15 +127,42 @@ public class HUD : MonoBehaviour
 
     private void RefreshBag()
     {
+        // remove the old candy chips
+        foreach (Transform child in bagContents) Destroy(child.gameObject);
+
         if (!bag.HasBag)
         {
             bagIcon.enabled = false;
             bagText.text = "No bag";
+            bagContents.gameObject.SetActive(false);
             return;
         }
         bagIcon.enabled = true;
         bagIcon.color = GameColors.ToColor(bag.CurrentColor);
         bagText.text = $"{GameColors.ToName(bag.CurrentColor)} bag: {bag.Contents.Count} candy";
+
+        // count each candy type, keeping the order they went into the bag
+        List<CandyData> types = new List<CandyData>();
+        Dictionary<CandyData, int> counts = new Dictionary<CandyData, int>();
+        foreach (CandyData c in bag.Contents)
+        {
+            if (!counts.ContainsKey(c))
+            {
+                types.Add(c);
+                counts[c] = 0;
+            }
+            counts[c]++;
+        }
+
+        // one "[icon] x n" chip per type
+        foreach (CandyData c in types)
+        {
+            OrderEntryUI chip = Instantiate(candyChipPrefab, bagContents);
+            chip.Set(c.icon, counts[c]);
+        }
+
+        // hide the white strip while the bag is empty
+        bagContents.gameObject.SetActive(types.Count > 0);
     }
 
     // one card per door slot; an empty slot hides its card
