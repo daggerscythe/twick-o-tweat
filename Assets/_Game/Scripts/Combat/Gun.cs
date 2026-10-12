@@ -64,7 +64,7 @@ public class Gun : MonoBehaviour
     // true if the FIRST thing the crosshair touches is the door zone
     private bool AimingAtDoor(Ray ray)
     {
-        if (Physics.Raycast(ray, out RaycastHit hit, range, ~0, QueryTriggerInteraction.Collide))
+        if (Physics.Raycast(ray, out RaycastHit hit, range, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
         {
             return hit.collider.GetComponent<NoShootZone>() != null;
         }

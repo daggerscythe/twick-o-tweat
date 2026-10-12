@@ -17,17 +17,22 @@ public class PlayerController : MonoBehaviour
     [Header("Mouse Look")]
     [SerializeField] private float mouseSensitivity = 0.1f;
 
+    [Header("Safety")]
+    [SerializeField] private float fallResetHeight = -10f; // fell out of the world -> back to the start
+
     // public so bonus effects can change it
     public float CurrentSpeed { get; set; }
 
     private CharacterController controller;
     private float pitch; // up/down camera angle
     private float verticalVelocity; // falling speed
+    private Vector3 startPosition; // where the player spawned
 
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
         CurrentSpeed = walkSpeed;
+        startPosition = transform.position;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -41,6 +46,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (!GameManager.IsPlaying) return; // frozen on Game Over screen
+        if (transform.position.y < fallResetHeight) ResetToStart();
 
         Keyboard kb = Keyboard.current;
         Mouse mouse = Mouse.current;
@@ -76,6 +82,14 @@ public class PlayerController : MonoBehaviour
         // apply delta time to movement
         Vector3 velocity = move * CurrentSpeed + Vector3.up * verticalVelocity;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void ResetToStart()
+    {
+        controller.enabled = false; // the CharacterController would undo the teleport if it stayed on
+        transform.position = startPosition;
+        controller.enabled = true;
+        verticalVelocity = 0f;
     }
 
     private void SetCursorLocked(bool locked)

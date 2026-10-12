@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 28775641}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.3, y: 0.45, z: -5.2}
+  m_LocalPosition: {x: -0.35, y: 0.45, z: -5.2}
   m_LocalScale: {x: 0.6, y: 0.45, z: 0.6}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -300,6 +300,7 @@ Transform:
   - {fileID: 1814007281}
   - {fileID: 1114404833}
   - {fileID: 271945585}
+  - {fileID: 166080017}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &72772719
@@ -820,6 +821,59 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &166080016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 166080017}
+  - component: {fileID: 166080018}
+  m_Layer: 2
+  m_Name: DoorBlocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &166080017
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166080016}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.020980868, y: 0.026134606, z: 0.001196108, w: 0.9994376}
+  m_LocalPosition: {x: 0, y: 1.5, z: 6}
+  m_LocalScale: {x: 2.4, y: 3, z: 0.2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 31881066}
+  m_LocalEulerAnglesHint: {x: 2.4, y: 3, z: 0.2}
+--- !u!65 &166080018
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166080016}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &170646167
 GameObject:
   m_ObjectHideFlags: 0
@@ -5112,6 +5166,7 @@ MonoBehaviour:
   maxSpeed: 4
   thiefChance: 0.3
   tankChance: 0.25
+  thiefHealth: 2
   thiefSpeedBonus: 1
   tankHealthMultiplier: 3
   tankSpeedMultiplier: 0.6
@@ -5156,7 +5211,7 @@ MonoBehaviour:
   ghosts: {fileID: 922808057}
   lightsOut: {fileID: 922808058}
   playerBag: {fileID: 1241911122}
-  phaseLength: 120
+  phaseLength: 90
   startHour: 6
   nightHours: 3
   tutorialMinItems: 1
@@ -6246,6 +6301,7 @@ MonoBehaviour:
   walkSpeed: 5
   gravity: -20
   mouseSensitivity: 0.08
+  fallResetHeight: -10
 --- !u!143 &1241911119
 CharacterController:
   m_ObjectHideFlags: 0
@@ -6305,7 +6361,7 @@ MonoBehaviour:
   range: 3
   hitMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 51
   logInteractions: 0
 --- !u!114 &1241911122
 MonoBehaviour:
@@ -6356,7 +6412,7 @@ MonoBehaviour:
   fireCooldown: 0.15
   shootMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 115
   tracerTime: 0.05
   loweredOffset: {x: 0, y: -0.2, z: -0.05}
   loweredTilt: 45
