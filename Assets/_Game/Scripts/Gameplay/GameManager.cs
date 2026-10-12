@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
     {
         if (IsGameOver) return;
 
-        Strikes++;
+        if (!PracticeMode) Strikes++; // tutorial timeouts don't count
         OnStrike?.Invoke();
         OnScoreChanged?.Invoke();
 
