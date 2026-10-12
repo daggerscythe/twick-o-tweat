@@ -19,6 +19,8 @@ public class CandyBowl : MonoBehaviour, IInteractable
 
     public void Interact(PlayerBag bag)
     {
-        if (bag.HasBag) bag.AddCandy(candy);
+        if (!bag.HasBag) return;
+        bag.AddCandy(candy);
+        AudioManager.Play(Sfx.CandyPickup);
     }
 }

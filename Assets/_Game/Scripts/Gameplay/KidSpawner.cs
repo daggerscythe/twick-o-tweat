@@ -88,6 +88,7 @@ public class KidSpawner : MonoBehaviour
         kidsInSlots[slot] = kid;
         OnKidSpawned?.Invoke(kid);
         OnKidsChanged?.Invoke();
+        AudioManager.Play(Sfx.KidSpawn);
     }
 
     private void HandleKidLeft(Kid kid)

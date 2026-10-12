@@ -50,6 +50,7 @@ public class PlayerHealth : MonoBehaviour
         Current = Mathf.Max(0f, Current - amount);
         lastDamageTime = Time.time; // restarts the regen countdown
         OnDamaged?.Invoke();
+        AudioManager.Play(Sfx.PlayerHurt);
         OnHealthChanged?.Invoke();
 
         if (Current <= 0f) GameManager.Instance.EndGame(GameOverReason.Health);

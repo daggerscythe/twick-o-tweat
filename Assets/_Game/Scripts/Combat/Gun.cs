@@ -74,7 +74,7 @@ public class Gun : MonoBehaviour
     private void Shoot(Ray ray)
     {
         nextFireTime = Time.time + fireCooldown;
-
+        AudioManager.Play(Sfx.Blast);
         Vector3 end = ray.origin + ray.direction * range; // where the tracer ends if nothing hit
 
         // QueryTriggerInteraction.Ignore = bullets fly through triggers

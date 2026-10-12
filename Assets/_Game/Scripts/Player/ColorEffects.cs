@@ -95,6 +95,7 @@ public class ColorEffects : MonoBehaviour
         }
 
         Debug.Log($"Color effect: {EffectName(color)} for {duration}s");
+        AudioManager.Play(Sfx.ColorEffect);
         OnEffectChanged?.Invoke();
     }
 

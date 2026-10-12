@@ -6,7 +6,6 @@ using UnityEngine;
 public class ThiefGhost : Ghost
 {
     [Header("Thief")]
-    [SerializeField] private Vector2 houseHalfSize = new Vector2(7f, 6f); // room is 14x12
     [SerializeField] private SpriteRenderer stolenIcon; // child that shows the candy it carries
 
     private PlayerBag bag;
@@ -15,7 +14,7 @@ public class ThiefGhost : Ghost
 
     protected override void Awake()
     {
-        base.Awake(); // run Ghosts Awake first
+        base.Awake(); // run Ghost's Awake first
         if (stolenIcon != null) stolenIcon.enabled = false;
     }
 
@@ -29,6 +28,8 @@ public class ThiefGhost : Ghost
             StartKnockback(away); // nothing to steal: bounce off and try again
             return;
         }
+
+        AudioManager.Play(Sfx.ThiefSteal);
 
         if (stolenIcon != null)
         {
@@ -44,17 +45,11 @@ public class ThiefGhost : Ghost
     {
         transform.position += fleeDirection * Speed * Time.deltaTime;
 
-        if (!InsideHouse()) Despawn(); // got away with the candy
+        if (!InsideHouse()) Despawn(); // got away with the candy (no death sound)
     }
 
     protected override void OnKilled()
     {
         if (stolen != null && InsideHouse()) bag.ReturnStolen(stolen);
-    }
-
-    private bool InsideHouse()
-    {
-        Vector3 p = transform.position;
-        return Mathf.Abs(p.x) < houseHalfSize.x && Mathf.Abs(p.z) < houseHalfSize.y;
     }
 }

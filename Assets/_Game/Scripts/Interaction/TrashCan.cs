@@ -13,6 +13,8 @@ public class TrashCan : MonoBehaviour, IInteractable
 
     public void Interact(PlayerBag bag)
     {
-        if (bag.HasBag) bag.EmptyBag();
+        if (!bag.HasBag || bag.Contents.Count == 0) return;
+        bag.EmptyBag();
+        AudioManager.Play(Sfx.TrashDump);
     }
 }

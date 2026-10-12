@@ -50,6 +50,7 @@ public class LightsOut : MonoBehaviour
     // a coroutine can wait in the middle (yield return) and continue on a later frame
     private IEnumerator PowerOutage(Action onDone)
     {
+        AudioManager.Play(Sfx.PowerOutage);
         flickering = true;
         for (int i = 0; i < flickers; i++)
         {

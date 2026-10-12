@@ -45,6 +45,9 @@ public class GameOverScreen : MonoBehaviour
         int score = GameManager.Instance.Score;
         bool won = reason == GameOverReason.Survived;
 
+        AudioManager.StopMusic();
+        AudioManager.Play(won ? Sfx.YouWin : Sfx.GameOver);
+
         panel.SetActive(true);
         titleText.text = won ? "You survived the night!" : "Game Over";
 

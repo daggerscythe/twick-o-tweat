@@ -22,5 +22,6 @@ public class BagPickup : MonoBehaviour, IInteractable
     public void Interact(PlayerBag bag)
     {
         bag.GrabBag(color);
+        AudioManager.Play(Sfx.BagPickup);
     }
 }

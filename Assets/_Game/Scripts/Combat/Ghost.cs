@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 
 // a normal ghost: flies straight at the player through walls
-// base for ThiefGhost
 // lives on the Ghost prefab
 
 public class Ghost : MonoBehaviour
@@ -10,7 +9,7 @@ public class Ghost : MonoBehaviour
     protected enum State { Chasing, KnockedBack, Fleeing }
 
     [Header("Contact")]
-    [SerializeField] protected float contactDamage = 10f;
+    [SerializeField] protected float contactDamage = 8f;
     [SerializeField] protected float contactRange = 0.9f; // horizontal distance that counts as touching
     [SerializeField] protected float chestHeight = 1.2f; // aims at this height above players feet
 
@@ -26,6 +25,12 @@ public class Ghost : MonoBehaviour
     [Header("Glow (lights out)")]
     [SerializeField] private Color glowColor = new Color(0.6f, 0.8f, 1f);
     [SerializeField] private float glowStrength = 1.5f;
+
+    [Header("House")]
+    [SerializeField] protected Vector2 houseHalfSize = new Vector2(7f, 6f); // room is 14x12, centered on 0,0
+
+    [Header("Sound")]
+    [SerializeField] private Sfx appearSound = Sfx.GhostAppear; // Ghost_Tank: TankAppear
 
     public int Health { get; protected set; }
     public float Speed { get; protected set; }
@@ -44,6 +49,8 @@ public class Ghost : MonoBehaviour
 
     private Color normalEmission;
     private bool glowing;
+
+    private bool hasAppeared; // the appear sound already played (only once per ghost, even after knockbacks)
 
     protected virtual void Awake()
     {
@@ -71,6 +78,8 @@ public class Ghost : MonoBehaviour
             case State.Fleeing: Flee(); break;
         }
 
+        CheckAppeared();
+
         // turn the red flash back off
         if (flashTimer > 0f)
         {
@@ -83,8 +92,21 @@ public class Ghost : MonoBehaviour
         }
 
         UpdateGlow();
+    }
 
-        UpdateGlow();
+    // plays the appear sound the first time the ghost floats into the room
+    private void CheckAppeared()
+    {
+        if (hasAppeared || !InsideHouse()) return;
+        hasAppeared = true;
+        AudioManager.Play(appearSound);
+    }
+
+    // true while the ghost's center is inside the walls
+    protected bool InsideHouse()
+    {
+        Vector3 p = transform.position;
+        return Mathf.Abs(p.x) < houseHalfSize.x && Mathf.Abs(p.z) < houseHalfSize.y;
     }
 
     // faint glow while the power is out
@@ -117,7 +139,7 @@ public class Ghost : MonoBehaviour
     // what happens on contact
     protected virtual void OnTouchPlayer(Vector3 away)
     {
-        target.TakeDamage(contactDamage); // does nothing while green effect is on
+        target.TakeDamage(contactDamage); // does nothing while green effect or hit cooldown is on
         StartKnockback(away);
     }
 
@@ -157,8 +179,13 @@ public class Ghost : MonoBehaviour
 
         if (Health <= 0)
         {
+            AudioManager.Play(Sfx.GhostDeath); // the killing shot plays ONLY the death sound
             OnKilled();
-            Despawn(); // TODO: death sound + poof
+            Despawn();
+        }
+        else
+        {
+            AudioManager.Play(Sfx.GhostHit);
         }
     }
 

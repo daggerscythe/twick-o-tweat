@@ -46,6 +46,7 @@ public class Kid : MonoBehaviour, IInteractable
         {
             TimeLeft = 0f;
             finished = true;
+            AudioManager.Play(Sfx.OrderFail);
             GameManager.Instance.RegisterTimeout(); // 0 points + 1 strike
             Leave();
         }
@@ -66,6 +67,7 @@ public class Kid : MonoBehaviour, IInteractable
 
         DeliveryResult result = ScoreCalculator.Calculate(Order, candies, bagColor, KidColor, TimeLeft, TotalTime);
         GameManager.Instance.RegisterDelivery(result);
+        AudioManager.Play(result.Perfect ? Sfx.OrderSuccess : Sfx.OrderFail);
         Leave();
     }
 
