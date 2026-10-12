@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 
 // spawns ghosts outside the house every few seconds
 // picks Normal, Thief or Tank
+// how tough and how often comes from the current phase
 // lives on Managers
 
 public enum GhostType { Normal, Thief, Tank }
@@ -20,22 +21,16 @@ public class GhostSpawner : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerHealth player;
 
-    [Header("Timing")]
-    [SerializeField] private float spawnInterval = 5f;
-    [SerializeField] private int maxAlive = 5;
+    [Header("Difficulty before the night (each phase overrides these)")]
+    [SerializeField] private float spawnInterval = 8f;
+    [SerializeField] private int maxAlive = 3;
+    [SerializeField] private int normalHealth = 2;
+    [SerializeField] private float normalSpeed = 2f; // always slower than the player (5)
 
     [Header("Where (outside the house)")]
     [SerializeField] private Vector2 roomHalfSize = new Vector2(7f, 6f); // room is 14x12, centered on 0,0
     [SerializeField] private float spawnMargin = 3f; // meters outside the walls
     [SerializeField] private float spawnHeight = 1.25f;
-
-    [Header("Scaling: every scoreStep points")]
-    [SerializeField] private int scoreStep = 500;
-    [SerializeField] private int baseHealth = 3;
-    [SerializeField] private int maxHealth = 8;
-    [SerializeField] private float baseSpeed = 2f;
-    [SerializeField] private float speedPerStep = 0.25f;
-    [SerializeField] private float maxSpeed = 4f; // slower than player
 
     [Header("Special ghosts")]
     [SerializeField, Range(0f, 1f)] private float thiefChance = 0.3f; // per spawn, once thieves are on
@@ -81,6 +76,15 @@ public class GhostSpawner : MonoBehaviour
         }
     }
 
+    // NightDirector calls this at the start of every phase
+    public void SetDifficulty(int health, float speed, float interval, int max)
+    {
+        normalHealth = health;
+        normalSpeed = speed;
+        spawnInterval = interval;
+        maxAlive = max;
+    }
+
     // so a new ghost type shows up right after its pop up
     public void ForceNext(GhostType type)
     {
@@ -106,17 +110,16 @@ public class GhostSpawner : MonoBehaviour
     {
         if (type == GhostType.Tank && aliveTank != null) type = GhostType.Normal; // only 1 tank at a time
 
-        // normal ghost stats scaled by score
-        int steps = GameManager.Instance.Score / scoreStep;
-        int health = Mathf.Min(baseHealth + steps, maxHealth);
-        float speed = Mathf.Min(baseSpeed + speedPerStep * steps, maxSpeed);
+        // normal ghost stats come from the current phase
+        int health = normalHealth;
+        float speed = normalSpeed;
         Ghost prefab = normalPrefab;
 
         // special ghosts start from the normal stats
         if (type == GhostType.Thief)
         {
             prefab = thiefPrefab;
-            health = thiefHealth; // doesn't scale up so they are killable late game
+            health = thiefHealth; // doesn't scale up
             speed += thiefSpeedBonus;
         }
         else if (type == GhostType.Tank)

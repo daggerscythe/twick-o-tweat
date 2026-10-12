@@ -153,10 +153,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61735ee189121d645b508f07d78c80ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ghost
-  contactDamage: 10
+  contactDamage: 8
   contactRange: 0.9
   chestHeight: 1.2
   knockbackDistance: 3
   knockbackDuration: 0.4
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   flashTime: 0.1
+  hitGlowStrength: 2
+  glowColor: {r: 0.6, g: 0.8, b: 1, a: 1}
+  glowStrength: 1.5

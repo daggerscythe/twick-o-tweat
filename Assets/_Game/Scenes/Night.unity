@@ -5619,17 +5619,13 @@ MonoBehaviour:
   thiefPrefab: {fileID: 5014119173415050263, guid: 69b280dfe9dca2341854adf64dc680ed, type: 3}
   tankPrefab: {fileID: 405896489511342248, guid: a3e06318518805d408375f02d9035277, type: 3}
   player: {fileID: 1241911123}
-  spawnInterval: 5
-  maxAlive: 5
+  spawnInterval: 8
+  maxAlive: 3
+  normalHealth: 2
+  normalSpeed: 2
   roomHalfSize: {x: 7, y: 6}
   spawnMargin: 3
   spawnHeight: 1.25
-  scoreStep: 500
-  baseHealth: 3
-  maxHealth: 8
-  baseSpeed: 2
-  speedPerStep: 0.25
-  maxSpeed: 4
   thiefChance: 0.3
   tankChance: 0.25
   thiefHealth: 2
@@ -5689,9 +5685,14 @@ MonoBehaviour:
     kidSlots: 1
     thiefGhosts: 0
     tankGhosts: 0
+    ghostHealth: 2
+    ghostSpeed: 2
+    spawnInterval: 8
+    maxGhosts: 3
     lightsOut: 0
     popupTitle: The night begins!
     popupBody: 'Survive until <b>9 PM</b>. Orders get bigger as the night goes on, and the ghosts get tougher as your score climbs.
+
 
 
       The night ends early if your <b>health hits 0</b> or <b>3 kids</b> leave unhappy.
@@ -5705,6 +5706,10 @@ MonoBehaviour:
     kidSlots: 2
     thiefGhosts: 1
     tankGhosts: 0
+    ghostHealth: 3
+    ghostSpeed: 2.2
+    spawnInterval: 7
+    maxGhosts: 4
     lightsOut: 0
     popupTitle: Two at the door!
     popupBody: 'Word got out: kids now wait at <b>two spots</b> on the porch. Pick which order to fill first, and which bag to use.
@@ -5720,6 +5725,10 @@ MonoBehaviour:
     kidSlots: 2
     thiefGhosts: 1
     tankGhosts: 1
+    ghostHealth: 3
+    ghostSpeed: 2.4
+    spawnInterval: 7
+    maxGhosts: 4
     lightsOut: 0
     popupTitle: Tank Ghost!
     popupBody: 'A <b>Tank Ghost</b> has woken up: big, slow, and it hits extra hard. It takes a lot of shots to bring down.
@@ -5735,6 +5744,10 @@ MonoBehaviour:
     kidSlots: 2
     thiefGhosts: 1
     tankGhosts: 1
+    ghostHealth: 4
+    ghostSpeed: 2.5
+    spawnInterval: 6
+    maxGhosts: 4
     lightsOut: 1
     popupTitle: Lights out!
     popupBody: 'The power just went out! Your <b>flashlight</b> points wherever you look.
