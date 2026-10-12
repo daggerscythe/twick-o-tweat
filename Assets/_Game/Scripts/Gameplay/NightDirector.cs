@@ -338,7 +338,7 @@ public class NightDirector : MonoBehaviour
     private string ColorMatchText()
     {
         string text = "That bag matched the kid's color! A <b>perfect order</b> in a <b>matching bag</b> gives " +
-                      "<b>+100 points</b> and a <b>5-second power-up</b>:\n\n";
+               "<b>+100 points</b> and a <b>5-second power-up</b>. Different colors <b>stack</b>!\n\n";
 
         BagColor[] all = { BagColor.LightBlue, BagColor.Yellow, BagColor.Red, BagColor.Green };
         foreach (BagColor c in all)

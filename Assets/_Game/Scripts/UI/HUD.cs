@@ -47,11 +47,9 @@ public class HUD : MonoBehaviour
     [SerializeField] private Gun gun;
     [SerializeField] private Image crosshair;
 
-    [Header("Color effect")]
+    [Header("Color effects")]
     [SerializeField] private ColorEffects effects;
-    [SerializeField] private GameObject effectPanel;
-    [SerializeField] private Image effectIcon;
-    [SerializeField] private TMP_Text effectText;
+    [SerializeField] private EffectRowUI[] effectRows;
 
     private float feedbackHideTime;
     private Color crosshairColor;
@@ -189,11 +187,8 @@ public class HUD : MonoBehaviour
 
     private void UpdateEffect()
     {
-        if (effectPanel.activeSelf != effects.HasEffect) effectPanel.SetActive(effects.HasEffect);
-        if (!effects.HasEffect) return;
-
-        effectIcon.color = GameColors.ToColor(effects.ActiveColor);
-        effectText.text = $"{ColorEffects.EffectName(effects.ActiveColor)}  {effects.TimeLeft:0.0}s";
+        // every row shows or hides itself for its own color
+        foreach (EffectRowUI row in effectRows) row.Refresh(effects);
     }
 
     private void UpdateDamageFlash()

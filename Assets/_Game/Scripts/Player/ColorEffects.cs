@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// one effect at a time: a new match replaces the current one
+// color match power-ups
+// effects STACK: each color has its own timer
 // lives on the Player object
 
 public class ColorEffects : MonoBehaviour
@@ -14,11 +16,13 @@ public class ColorEffects : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool debugKeys = true; // 1-4 = trigger an effect
 
-    public bool HasEffect { get; private set; }
-    public BagColor ActiveColor { get; private set; }
-    public float TimeLeft { get; private set; }
+    // the 4 colors in a fixed order, handy for looping
+    public static readonly BagColor[] AllColors = { BagColor.LightBlue, BagColor.Yellow, BagColor.Red, BagColor.Green };
 
-    public event Action OnEffectChanged; // for sounds / the first-match pop-up 
+    public event Action OnEffectChanged; // an effect started or ended
+
+    // seconds left for every RUNNING effect; a color that isn't in here is off
+    private readonly Dictionary<BagColor, float> timeLeft = new Dictionary<BagColor, float>();
 
     private PlayerController controller;
     private PlayerHealth health;
@@ -58,11 +62,19 @@ public class ColorEffects : MonoBehaviour
             if (Keyboard.current.digit4Key.wasPressedThisFrame) Activate(BagColor.Green);
         }
 
-        if (!HasEffect) return;
-
-        TimeLeft -= Time.deltaTime;
-        if (TimeLeft <= 0f) EndEffect();
+        // count down every running effect
+        foreach (BagColor c in AllColors)
+        {
+            if (!timeLeft.TryGetValue(c, out float t)) continue; // not running
+            t -= Time.deltaTime;
+            if (t <= 0f) EndEffect(c);
+            else timeLeft[c] = t;
+        }
     }
+
+    public bool IsActive(BagColor color) => timeLeft.ContainsKey(color);
+
+    public float GetTimeLeft(BagColor color) => timeLeft.TryGetValue(color, out float t) ? t : 0f;
 
     private void HandleDelivery(DeliveryResult r)
     {
@@ -72,17 +84,13 @@ public class ColorEffects : MonoBehaviour
 
     public void Activate(BagColor color)
     {
-        if (HasEffect) EndEffect(); // undo the old one first
-
-        HasEffect = true;
-        ActiveColor = color;
-        TimeLeft = duration;
+        timeLeft[color] = duration; // starts this color, or restarts it if it's already running; other colors keep going
 
         switch (color)
         {
             case BagColor.LightBlue: controller.CurrentSpeed = boostedSpeed; break;
             case BagColor.Yellow: gun.Damage = boostedDamage; break;
-            case BagColor.Red: health.HealFull(); break;
+            case BagColor.Red: health.HealFull(); break; // instant, so a repeat match heals again
             case BagColor.Green: health.Invulnerable = true; break;
         }
 
@@ -90,15 +98,19 @@ public class ColorEffects : MonoBehaviour
         OnEffectChanged?.Invoke();
     }
 
-    private void EndEffect()
+    private void EndEffect(BagColor color)
     {
-        // put everything back
-        controller.CurrentSpeed = normalSpeed;
-        gun.Damage = normalDamage;
-        health.Invulnerable = false;
+        timeLeft.Remove(color);
 
-        HasEffect = false;
-        TimeLeft = 0f;
+        // undo only THIS color's effect
+        switch (color)
+        {
+            case BagColor.LightBlue: controller.CurrentSpeed = normalSpeed; break;
+            case BagColor.Yellow: gun.Damage = normalDamage; break;
+            case BagColor.Green: health.Invulnerable = false; break;
+                // Red's heal was instant: nothing to undo
+        }
+
         OnEffectChanged?.Invoke();
     }
 
