@@ -5755,7 +5755,7 @@ MonoBehaviour:
 
 
       Ghosts glow faintly in the dark. Hold on until 9 PM!'
-  debugKeys: 1
+  debugKeys: 0
 --- !u!1 &934534637
 GameObject:
   m_ObjectHideFlags: 0
@@ -6973,7 +6973,7 @@ MonoBehaviour:
   duration: 5
   boostedSpeed: 8
   boostedDamage: 2
-  debugKeys: 1
+  debugKeys: 0
 --- !u!1 &1290833846
 GameObject:
   m_ObjectHideFlags: 0
@@ -11825,10 +11825,10 @@ MonoBehaviour:
     volume: 1
   - sound: 13
     clip: {fileID: 8300000, guid: b2a6c1d0e0d0ea9428469db347bb81bd, type: 3}
-    volume: 1
+    volume: 0.8
   - sound: 14
     clip: {fileID: 8300000, guid: dc9415dd809575f46bc191072a7c32db, type: 3}
-    volume: 1
+    volume: 0.7
   - sound: 15
     clip: {fileID: 8300000, guid: fb3f597da9e8dac48a45a3260ccb46bb, type: 3}
     volume: 1
