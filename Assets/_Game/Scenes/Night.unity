@@ -4261,7 +4261,7 @@ Transform:
   m_GameObject: {fileID: 720723064}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.25, y: -0.15, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5716,7 +5716,7 @@ MonoBehaviour:
 
 
 
-      
+
 
       Watch out for <color=#B266FF><b>purple Thief Ghosts</b></color>. They don''t hurt you: they <b>steal a candy</b> from your bag and fly away. Shoot one before it leaves the house and the candy drops back into your bag.'
   - name: Phase 3
@@ -5735,7 +5735,7 @@ MonoBehaviour:
 
 
 
-      
+
 
       Only one roams at a time.'
   - name: Phase 4
