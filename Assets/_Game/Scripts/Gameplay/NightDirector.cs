@@ -68,7 +68,7 @@ public class NightDirector : MonoBehaviour
             name = "Phase 2", minItems = 2, maxItems = 4, kidSlots = 2, thiefGhosts = true,
             ghostHealth = 3, ghostSpeed = 2.2f, spawnInterval = 5.5f, maxGhosts = 4,
             popupTitle = "Two at the door!",
-            popupBody = "Word got out: kids now wait at <b>two spots</b> on the porch. Pick which order to fill first, and which bag to use.\n\n" +
+            popupBody = "Word got out: kids now come to <b>both doors</b>, the front door <b>(1)</b> and the back door <b>(2)</b>. Pick which order to fill first, and which bag to use.\n\n" +
                         "Watch out for <color=#B266FF><b>purple Thief Ghosts</b></color>. They don't hurt you: they <b>steal a candy</b> from your bag and fly away. " +
                         "Shoot one before it leaves the house and the candy drops back into your bag."
         },
