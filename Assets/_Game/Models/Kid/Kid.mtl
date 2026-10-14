@@ -1,0 +1,9 @@
+newmtl KidCostume
+Kd 1 1 1
+
+newmtl KidSkin
+Kd 1.0 0.80 0.65
+
+newmtl KidDark
+Kd 0.12 0.09 0.14
+

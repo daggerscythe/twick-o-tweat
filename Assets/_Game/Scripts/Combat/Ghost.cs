@@ -32,6 +32,11 @@ public class Ghost : MonoBehaviour
     [Header("Sound")]
     [SerializeField] private Sfx appearSound = Sfx.GhostAppear; // Ghost_Tank: TankAppear
 
+    [Header("Model")]
+    [SerializeField] private Renderer bodyRenderer; // the body mesh on the imported model
+    [SerializeField] private int bodyMaterialSlot = 0; // which material slot is the body
+    [SerializeField] private float turnSpeed = 10f; // how fast the ghost turns to face you
+    
     public int Health { get; protected set; }
     public float Speed { get; protected set; }
 
@@ -43,7 +48,8 @@ public class Ghost : MonoBehaviour
     private Vector3 knockStart, knockEnd;
     private float knockTimer;
 
-    private Renderer rend;
+    private Material bodyMat; // this ghost's own copy of the body material
+
     private Color normalColor;
     private float flashTimer;
 
@@ -54,9 +60,9 @@ public class Ghost : MonoBehaviour
 
     protected virtual void Awake()
     {
-        rend = GetComponent<Renderer>();
-        normalColor = rend.material.color;
-        normalEmission = rend.material.GetColor("_EmissionColor");
+        bodyMat = bodyRenderer.materials[bodyMaterialSlot];
+        normalColor = bodyMat.color;
+        normalEmission = bodyMat.GetColor("_EmissionColor");
     }
 
     public void Init(PlayerHealth player, int health, float speed)
@@ -78,6 +84,8 @@ public class Ghost : MonoBehaviour
             case State.Fleeing: Flee(); break;
         }
 
+        FaceTarget();
+
         CheckAppeared();
 
         // turn the red flash back off
@@ -86,12 +94,24 @@ public class Ghost : MonoBehaviour
             flashTimer -= Time.deltaTime;
             if (flashTimer <= 0f)
             {
-                rend.material.color = normalColor;
-                rend.material.SetColor("_EmissionColor", CurrentEmission());
+                bodyMat.color = normalColor;
+                bodyMat.SetColor("_EmissionColor", CurrentEmission());
             }
         }
 
         UpdateGlow();
+    }
+
+    // turn to look at the player (a fleeing thief looks where it's going)
+    private void FaceTarget()
+    {
+        Vector3 look = target.transform.position - transform.position;
+        if (state == State.Fleeing) look = -look;
+        look.y = 0f; // only turn left/right, never tilt
+        if (look.sqrMagnitude < 0.0001f) return;
+
+        Quaternion wanted = Quaternion.LookRotation(look);
+        transform.rotation = Quaternion.Slerp(transform.rotation, wanted, turnSpeed * Time.deltaTime);
     }
 
     // plays the appear sound the first time the ghost floats into the room
@@ -114,7 +134,7 @@ public class Ghost : MonoBehaviour
     {
         if (glowing == LightsOut.Active) return;
         glowing = LightsOut.Active;
-        if (flashTimer <= 0f) rend.material.SetColor("_EmissionColor", CurrentEmission()); // a running flash resets it when it ends
+        if (flashTimer <= 0f) bodyMat.SetColor("_EmissionColor", CurrentEmission()); // a running flash resets it when it ends
     }
 
     // the emission the ghost should have when it isn't flashing
@@ -173,8 +193,8 @@ public class Ghost : MonoBehaviour
         if (Health <= 0) return; // already dying
 
         Health -= damage;
-        rend.material.color = hitColor;
-        rend.material.SetColor("_EmissionColor", hitColor * hitGlowStrength);
+        bodyMat.color = hitColor;
+        bodyMat.SetColor("_EmissionColor", hitColor * hitGlowStrength);
         flashTimer = flashTime;
 
         if (Health <= 0)

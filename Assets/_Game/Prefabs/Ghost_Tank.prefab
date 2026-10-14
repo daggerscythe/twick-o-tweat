@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4520245110550064062, guid: 97eb7d3abe292cd4092b5ebfea2ff1f6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 283a05c0ccf5cca42b8db581e9c4ae20, type: 2}
     - target: {fileID: 6141573271780133151, guid: 97eb7d3abe292cd4092b5ebfea2ff1f6, type: 3}
       propertyPath: appearSound
       value: 13
@@ -83,6 +87,10 @@ PrefabInstance:
     - target: {fileID: 6141573271780133151, guid: 97eb7d3abe292cd4092b5ebfea2ff1f6, type: 3}
       propertyPath: contactDamage
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6141573271780133151, guid: 97eb7d3abe292cd4092b5ebfea2ff1f6, type: 3}
+      propertyPath: bodyMaterialSlot
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6141573271780133151, guid: 97eb7d3abe292cd4092b5ebfea2ff1f6, type: 3}
       propertyPath: knockbackDistance
