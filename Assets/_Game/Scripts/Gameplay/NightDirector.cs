@@ -22,7 +22,7 @@ public class PhaseSettings
     public bool tankGhosts;
     [Min(1)] public int ghostHealth = 2; // normal ghost HP; tanks are x3, thieves have their own fixed HP
     [Min(0.5f)] public float ghostSpeed = 2f;
-    [Min(1f)] public float spawnInterval = 8f; // seconds between spawns
+    [Min(1f)] public float spawnInterval = 6f; // seconds between spawns
     [Min(1)] public int maxGhosts = 3; // alive at once
 
     [Header("Level")]
@@ -57,7 +57,7 @@ public class NightDirector : MonoBehaviour
         new PhaseSettings
         {
             name = "Phase 1", minItems = 2, maxItems = 3, kidSlots = 1,
-            ghostHealth = 2, ghostSpeed = 2f, spawnInterval = 8f, maxGhosts = 3,
+            ghostHealth = 2, ghostSpeed = 2f, spawnInterval = 6f, maxGhosts = 3,
             popupTitle = "The night begins!",
             popupBody = "Survive until <b>9 PM</b>. Orders get bigger and the ghosts get tougher as the night goes on.\n\n" +
                         "The night ends early if your <b>health hits 0</b> or <b>3 kids</b> leave unhappy.\n\n" +
@@ -66,7 +66,7 @@ public class NightDirector : MonoBehaviour
         new PhaseSettings
         {
             name = "Phase 2", minItems = 2, maxItems = 4, kidSlots = 2, thiefGhosts = true,
-            ghostHealth = 3, ghostSpeed = 2.2f, spawnInterval = 7f, maxGhosts = 4,
+            ghostHealth = 3, ghostSpeed = 2.2f, spawnInterval = 5.5f, maxGhosts = 4,
             popupTitle = "Two at the door!",
             popupBody = "Word got out: kids now wait at <b>two spots</b> on the porch. Pick which order to fill first, and which bag to use.\n\n" +
                         "Watch out for <color=#B266FF><b>purple Thief Ghosts</b></color>. They don't hurt you: they <b>steal a candy</b> from your bag and fly away. " +
@@ -75,7 +75,7 @@ public class NightDirector : MonoBehaviour
         new PhaseSettings
         {
             name = "Phase 3", minItems = 3, maxItems = 5, kidSlots = 2, thiefGhosts = true, tankGhosts = true,
-            ghostHealth = 3, ghostSpeed = 2.4f, spawnInterval = 7f, maxGhosts = 4,
+            ghostHealth = 3, ghostSpeed = 2.4f, spawnInterval = 5f, maxGhosts = 4,
             popupTitle = "Tank Ghost!",
             popupBody = "A <b>Tank Ghost</b> has woken up: big, slow, and it hits extra hard. It takes a lot of shots to bring down.\n\n" +
                         "Only one roams at a time."
@@ -83,7 +83,7 @@ public class NightDirector : MonoBehaviour
         new PhaseSettings
         {
             name = "Phase 4", minItems = 4, maxItems = 6, kidSlots = 2, thiefGhosts = true, tankGhosts = true, lightsOut = true,
-            ghostHealth = 4, ghostSpeed = 2.5f, spawnInterval = 6f, maxGhosts = 4,
+            ghostHealth = 4, ghostSpeed = 2.5f, spawnInterval = 4.5f, maxGhosts = 4,
             popupTitle = "Lights out!",
             popupBody = "The power just went out! Your <b>flashlight</b> points wherever you look.\n\n" +
                         "Ghosts glow faintly in the dark. Hold on until 9 PM!"

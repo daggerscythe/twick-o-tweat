@@ -5687,7 +5687,7 @@ MonoBehaviour:
     tankGhosts: 0
     ghostHealth: 2
     ghostSpeed: 2
-    spawnInterval: 8
+    spawnInterval: 6
     maxGhosts: 3
     lightsOut: 0
     popupTitle: The night begins!
@@ -5708,7 +5708,7 @@ MonoBehaviour:
     tankGhosts: 0
     ghostHealth: 3
     ghostSpeed: 2.2
-    spawnInterval: 7
+    spawnInterval: 5.5
     maxGhosts: 4
     lightsOut: 0
     popupTitle: Two at the door!
@@ -5727,7 +5727,7 @@ MonoBehaviour:
     tankGhosts: 1
     ghostHealth: 3
     ghostSpeed: 2.4
-    spawnInterval: 7
+    spawnInterval: 5
     maxGhosts: 4
     lightsOut: 0
     popupTitle: Tank Ghost!
@@ -5746,7 +5746,7 @@ MonoBehaviour:
     tankGhosts: 1
     ghostHealth: 4
     ghostSpeed: 2.5
-    spawnInterval: 6
+    spawnInterval: 4.5
     maxGhosts: 4
     lightsOut: 1
     popupTitle: Lights out!
