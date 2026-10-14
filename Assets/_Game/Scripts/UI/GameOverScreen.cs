@@ -22,8 +22,8 @@ public class GameOverScreen : MonoBehaviour
     [SerializeField] private Image[] pumpkins; // 3 images, left to right
     [SerializeField] private Color pumpkinOn = new Color(1f, 0.55f, 0.1f);
     [SerializeField] private Color pumpkinOff = new Color(0.25f, 0.25f, 0.25f, 0.6f);
-    [SerializeField] private int twoPumpkinScore = 4000; // TBD in playtesting
-    [SerializeField] private int threePumpkinScore = 7000; // TBD in playtesting
+    [SerializeField] private int twoPumpkinScore = 5000;
+    [SerializeField] private int threePumpkinScore = 10000;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()

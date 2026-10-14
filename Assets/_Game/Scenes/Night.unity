@@ -5487,8 +5487,8 @@ MonoBehaviour:
   - {fileID: 865046114}
   pumpkinOn: {r: 1, g: 0.55, b: 0.1, a: 1}
   pumpkinOff: {r: 0.25, g: 0.25, b: 0.25, a: 0.6}
-  twoPumpkinScore: 4000
-  threePumpkinScore: 7000
+  twoPumpkinScore: 5000
+  threePumpkinScore: 10000
 --- !u!114 &903761960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5655,7 +5655,7 @@ MonoBehaviour:
   darkReflections: 0.1
   flickers: 3
   flickerTime: 0.12
-  debugKeys: 0
+  debugKeys: 1
 --- !u!114 &922808059
 MonoBehaviour:
   m_ObjectHideFlags: 0
