@@ -8,7 +8,7 @@ public class BagPickup : MonoBehaviour, IInteractable
     void Start()
     {
         // paint the bag w the right color
-        Renderer r = GetComponent<Renderer>();
+        Renderer r = GetComponentInChildren<Renderer>();
         if (r != null) r.material.color = GameColors.ToColor(color);
     }
 

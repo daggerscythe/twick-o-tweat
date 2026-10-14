@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class TrashCan : MonoBehaviour, IInteractable
 {
+    private TrashCanLid lid;
+
+    private void Awake()
+    {
+        lid = GetComponent<TrashCanLid>();
+    }
+
     public string GetPrompt(PlayerBag bag)
     {
         if (!bag.HasBag) return "Trash can";
@@ -13,8 +20,9 @@ public class TrashCan : MonoBehaviour, IInteractable
 
     public void Interact(PlayerBag bag)
     {
-        if (!bag.HasBag || bag.Contents.Count == 0) return;
+        if (!bag.HasBag || bag.Contents.Count == 0) return; // nothing to dump: no sound, no lid
         bag.EmptyBag();
         AudioManager.Play(Sfx.TrashDump);
+        if (lid != null) lid.Play();
     }
 }
